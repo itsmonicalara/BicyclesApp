@@ -3,8 +3,9 @@
 const knex = require('../database/connection');
 
 // Crea una nueva bicicleta (pero no lo almacena en la base)
-exports.factory = (color, modelo, latitude, longitude) => {
+exports.factory = (id, color, modelo, latitude, longitude) => {
     return {
+      id: id,
       color: color,
       modelo: modelo,
       latitude: latitude,
@@ -19,6 +20,27 @@ exports.all = () => {
       .select('*')
       .from('bicycles');
 }
+
+// Almacen en la base de datos la bicicleta
+exports.create = (bicicleta) => {
+    return knex('bicycles')
+      .insert({
+        id: bicicleta.id,
+        color: bicicleta.color,
+        modelo: bicicleta.modelo,
+        latitude: bicicleta.latitude,
+        longitude: bicicleta.longitude
+      });
+}
+
+// Obtiene la información de una bicicleta por su id
+exports.find = (id) => {
+    return knex
+      .select('*')
+      .from('bicycles')
+      .where('id', id)
+      .first();
+  }
 
 let Bicicleta = function(id, color, modelo, ubicacion){
     this.id = id

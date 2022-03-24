@@ -35,3 +35,36 @@ exports.bicicleta_update_post = function(req, res){
 
     res.redirect('/bicicletas')
 }
+
+exports.store = (req, res) => {
+    let bicicleta = {
+        id: req.body.id,
+        color: req.body.color,
+        modelo: req.body.modelo,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+    };
+    // Crea la bicicleta
+    Bicicleta.create(bicicleta)
+    .then((id) => {
+        res.redirect('/bicicletas');
+    });
+}
+
+// Muestra la bicicleta
+exports.show = (req, res) => {
+    // Obtiene el id que viene en la url
+    let id = req.params.id;
+    // Busca dentro de la base de datos el producto con el id indicado
+    Bicicleta.find(id).then((bicicleta) => {
+      // Si el producto no existe entonces
+      if (bicicleta == null) {
+        // Regresa el error 404
+        res.status(404).send('Not found');
+        return;
+      }
+      // Si el producto existe entonces muestra la vista products/show.hbs
+      // con la información del producto
+      res.render('bicicletas/index', {bicicleta: bicicleta});
+    });
+  }
