@@ -1,3 +1,25 @@
+// models/bicicleta.js
+// Obtiene la conexión con la base de datos
+const knex = require('../database/connection');
+
+// Crea una nueva bicicleta (pero no lo almacena en la base)
+exports.factory = (color, modelo, latitude, longitude) => {
+    return {
+      color: color,
+      modelo: modelo,
+      latitude: latitude,
+      longitude: longitude
+    }
+}
+
+// Obtiene todos las bicicletas en la base
+exports.all = () => {
+    // Realiza la consulta dentro de knex
+    return knex
+      .select('*')
+      .from('bicycles');
+}
+
 let Bicicleta = function(id, color, modelo, ubicacion){
     this.id = id
     this.color = color

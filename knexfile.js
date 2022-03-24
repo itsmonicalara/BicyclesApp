@@ -13,7 +13,7 @@
      client: 'mysql2',
      connection: {
        host: process.env.DB_DEVELOPMENT_HOST || 'localhost',
-       port: process.env.DB_DEVELOPMENT_PORT || '8889',
+       port: process.env.DB_DEVELOPMENT_PORT || '3306',
        database: process.env.DB_DEVELOPMENT_NAME || 'redbicicletas',
        user:  process.env.DB_DEVELOPMENT_USER || 'root',
        password: process.env.DB_DEVELOPMENT_PASSWORD || 'root'
